@@ -1,3 +1,4 @@
+<?php include("./config.php"); ?>
 
 <!DOCTYPE html>
 <html lang="es">
@@ -438,25 +439,28 @@
                     <a href="http://lagunainnovadora.org" class="btn btn-lg btn-dark"><i class="fa fa-globe"                         target="_blank"></i> Sitio Web</a>
                     </div>
                     <div class="col-lg-8">
-<form class="form-horizontal" role="form">
+<form class="form-horizontal" id="contact-form" role="form" action="#" method="post">
+    <input type="hidden" name="email_to" value="<?php echo $email_to ?>">
+    <input type="hidden" name="email_subject" value="<?php echo $email_subject ?>">
   <div class="form-group">
     <div class="col-sm-10">
-      <input type="email" class="form-control" id="inputEmail3" placeholder="Email">
+      <input type="email" class="form-control" id="inputEmail3" placeholder="Email" required>
     </div>
   </div>
   <div class="form-group">
     <div class="col-sm-10">
-      <input type="email" class="form-control" id="inputEmail3" placeholder="Nombre Completo">
+      <input type="email" class="form-control" id="inputEmail3" placeholder="Nombre Completo" required>
     </div>
   </div>
   <div class="form-group">
     <div class="col-sm-10">
-      <input type="email" class="form-control" id="inputEmail3" placeholder="Comentario">
+        <textarea class="form-control" id="inputEmail3" name="message" rows="7" cols="5" id="message" placeholder="Escribe tu mensaje..." required></textarea>
     </div>
   </div>
   <div class="form-group">
     <div class="col-sm-offset-8 col-sm-2">
       <button type="submit" class="btn btn-default enviar">Enviar</button>
+      <input class="modal btn hidden" type="button" value="Submit" name="" data-toggle="modal" data-target="#modalBox" />
     </div>
   </div>
 </form>    
@@ -478,6 +482,23 @@
     <script src="js/contact_me.js"></script>
     <!-- Custom Theme JavaScript -->
     <script src="js/freelancer.js"></script>
+
+<script>
+    jQuery(function($) {
+        /*$('.modal.btn').click();*/
+        $("#contact-form").submit(function(){
+            event.preventDefault();
+            $(".modal.btn").click();
+            $.ajax({
+                type: "POST",
+                url: "send-contact-form.php",
+                data: $('#contact-form').serialize()
+            }).done(function(data) {
+                $(".modal-body").html(data);
+            });
+        });
+    });
+</script>
 <script>
     $('.carousel').carousel({
         interval: 3500 //changes the speed
