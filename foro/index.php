@@ -449,7 +449,7 @@
   </div>
   <div class="form-group">
     <div class="col-sm-10">
-      <input type="email" class="form-control" id="inputEmail3" placeholder="Nombre Completo" required>
+      <input type="text" class="form-control" id="inputEmail3" placeholder="Nombre Completo" required>
     </div>
   </div>
   <div class="form-group">
@@ -459,8 +459,8 @@
   </div>
   <div class="form-group">
     <div class="col-sm-offset-8 col-sm-2">
-      <button type="submit" class="btn btn-default enviar">Enviar</button>
-      <input class="modal btn hidden" type="button" value="Submit" name="" data-toggle="modal" data-target="#modalBox" />
+        <input class="submit btn btn-default enviar" type="submit" value="Enviar" />
+        <input class="modal btn hidden" type="button" value="Submit" name="" data-toggle="modal" data-target="#modalBox" />
     </div>
   </div>
 </form>    
