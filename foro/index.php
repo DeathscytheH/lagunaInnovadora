@@ -1,5 +1,3 @@
-<?php include("./config.php"); ?>
-
 <!DOCTYPE html>
 <html lang="es">
 <head>
@@ -169,7 +167,7 @@
             <div class="row   mosaico-full ">
                 <div class="col-lg-12 ">
                   <h2 align="center">Foro Internacional de Innovación y Emprendimiento Social</h2><br>
-                    <h3 align="center">Noviembre 2014, Fiesta Inn, Torreón Coahuila </h3><br><br>
+                    <h3 align="center">Noviembre 2014, Real Inn, Torreón Coahuila </h3><br><br>
                         <div class="row foro-texto ">
                             <div class="col-lg-6">
                             <div class="col-lg-12">
@@ -439,38 +437,46 @@
                     <a href="http://lagunainnovadora.org" class="btn btn-lg btn-dark"><i class="fa fa-globe"                         target="_blank"></i> Sitio Web</a>
                     </div>
                     <div class="col-lg-8">
-<form class="form-horizontal" id="contact-form" role="form" action="#" method="post">
-    <input type="hidden" name="email_to" value="<?php echo $email_to ?>">
-    <input type="hidden" name="email_subject" value="<?php echo $email_subject ?>">
+<form class="form-horizontal" id="contact" name="contact" method="post" novalidate="novalidate">
   <div class="form-group">
     <div class="col-sm-10">
-      <input type="email" class="form-control" id="inputEmail3" placeholder="Email" required>
+      <input type="email" name="email" class="form-control" id="email" placeholder="Email" required>
     </div>
   </div>
   <div class="form-group">
     <div class="col-sm-10">
-      <input type="text" class="form-control" id="inputEmail3" placeholder="Nombre Completo" required>
+      <input type="text" name="name" class="form-control" id="name" placeholder="Nombre Completo" required>
     </div>
   </div>
   <div class="form-group">
     <div class="col-sm-10">
-        <textarea class="form-control" id="inputEmail3" name="message" rows="7" cols="5" id="message" placeholder="Escribe tu mensaje..." required></textarea>
+        <textarea class="form-control" name="message" rows="7" cols="5" id="message" placeholder="Escribe tu mensaje..." required></textarea>
     </div>
   </div>
   <div class="form-group">
     <div class="col-sm-offset-8 col-sm-2">
-        <input class="submit btn btn-default enviar" type="submit" value="Enviar" />
-        <input class="modal btn hidden" type="button" value="Submit" name="" data-toggle="modal" data-target="#modalBox" />
+        <input class="submit btn enviar" type="submit" id="submit" name="submit" value="Enviar" />
     </div>
   </div>
-</form>    
+</form>
+<div id="success">
+    <span>
+        <p>Your message was sent successfully! I will be in touch as soon as I can.</p>
+    </span>
+</div>
+
+<div id="error">
+    <span>
+        <p>Something went wrong, try refreshing and submitting the form again.</p>
+    </span>
+</div>
                     </div>
                 </div>
             </div>
         </div>
     </aside>
     <!-- jQuery Version 1.11.0 -->
-    <script src="js/jquery-1.11.0.js"></script>
+    <script src="//code.jquery.com/jquery-latest.min.js"></script>
     <!-- Bootstrap Core JavaScript -->
     <script src="js/bootstrap.min.js"></script>
     <!-- Plugin JavaScript -->
@@ -483,21 +489,32 @@
     <!-- Custom Theme JavaScript -->
     <script src="js/freelancer.js"></script>
 
-<script>
-    jQuery(function($) {
-        /*$('.modal.btn').click();*/
-        $("#contact-form").submit(function(){
-            event.preventDefault();
-            $(".modal.btn").click();
-            $.ajax({
-                type: "POST",
-                url: "send-contact-form.php",
-                data: $('#contact-form').serialize()
-            }).done(function(data) {
-                $(".modal-body").html(data);
+<script type="text/javascript">
+// validate contact form
+$(function() {
+    $('#contact').validate({
+        submitHandler: function(form) {
+            $(form).ajaxSubmit({
+                type:"POST",
+                data: $(form).serialize(),
+                url:"process.php",
+                success: function() {
+                    $('#contact :input').attr('disabled', 'disabled');
+                    $('#contact').fadeTo( "slow", 0.15, function() {
+                        $(this).find(':input').attr('disabled', 'disabled');
+                        $(this).find('label').css('cursor','default');
+                        $('#success').fadeIn();
+                    });
+                },
+                error: function() {
+                    $('#contact').fadeTo( "slow", 0.15, function() {
+                        $('#error').fadeIn();
+                    });
+                }
             });
-        });
+        }
     });
+});
 </script>
 <script>
     $('.carousel').carousel({
