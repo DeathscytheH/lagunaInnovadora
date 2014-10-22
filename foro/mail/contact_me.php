@@ -14,7 +14,7 @@ $email_address = $_POST['email'];
 $message = $_POST['message'];
 	
 // Create the email and send the message
-$to = 'ale.hpineda@gmail.com'; // Add your email address inbetween the '' replacing yourname@yourdomain.com - This is where the form will send a message to.
+$to = 'contacto@lagunainnovadora.org'; // Add your email address inbetween the '' replacing yourname@yourdomain.com - This is where the form will send a message to.
 $email_subject = "Forma de contacto de Foro Laguna Innovadora:  $name";
 $email_body = "Haz recibido un nuevo mensaje.\n\n"."Aqui estan los detalles:\n\nNombre: $name\n\nEmail: $email_address\n\nMensaje:\n$message";
 $headers = "From: noreply@lagunainnovadora.org\n"; // This is the email address the generated message will be from. We recommend using something like noreply@yourdomain.com.
